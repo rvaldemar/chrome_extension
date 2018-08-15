@@ -1,0 +1,44 @@
+  {
+    "name": "auxilium_extended",
+    "version": "0.0.1",
+    "description": "Auxilium Chrome Extension!",
+    "manifest_version": 2,
+    // julia's thing
+    // "browser_action": {
+    //   // Julia's way
+    //   // "deafult_icon": "path",
+    //   "default_popup": "popup.html"
+    // },
+    // julia's way + google's display images on the extension management page, the permissions warning, and favicon
+    // "icons": {
+    //   "16": "o daniel que ponha as imagens e o path",
+    //   "128": "idem"
+    // },
+    "permissions": [
+      "tabs",
+      "activeTab",
+      "declarativeContent",
+      "storage"
+    ],
+
+    "page_action": {
+      "default_popup": "popup.html"
+      //,
+    // google's way - google's Designation for toolbar icons
+    // "default_icon": {
+    //   "16": "images/get_started16.png",
+    //   "32": "images/get_started32.png",
+    //   "48": "images/get_started48.png",
+    //   "128": "images/get_started128.png"
+    // }
+    },
+
+    "content_scripts": [
+      {
+        "matches": [
+          "https://kitt.lewagon.com/*"
+        ],
+        "js": ["build/extension.min.js"]
+      }
+    ]
+}
