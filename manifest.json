@@ -18,7 +18,11 @@
       "tabs",
       "activeTab",
       "declarativeContent",
-      "storage"
+      "storage",
+      "cookies"
+      //,
+      // "*://kitt.lewagon.com"
+
     ],
 
     "page_action": {

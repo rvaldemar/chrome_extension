@@ -56,3 +56,12 @@ export function addSyllabusOnCLick () {
 };
 
 
+// insert stuff in the head
+var head = document.querySelector('head');
+
+
+// add handlebars
+export function insertHandleBars () {
+  head.insertAdjacentHTML('beforeend', "<script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.amd.min.js'></script>")
+};
+

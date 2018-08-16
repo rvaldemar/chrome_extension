@@ -8,7 +8,11 @@ export function addNavbarBtn() {
 
 export function addQuestionBtn() {
   var div = document.querySelector('#exercise_results');
-  var button = '<a class="btn btn-default btn-question" id="solution-link" href="#">Go to the forum</a>';
+
+  var source   = document.getElementById("left-btn-template").innerHTML;
+  var template = Handlebars.compile(source);
+
+  var button = ;
   div.insertAdjacentHTML('beforeend', button);
 
 }
