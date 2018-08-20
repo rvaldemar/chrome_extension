@@ -1,7 +1,18 @@
 import axios from 'axios';
 
 
+var domain = 'http://localhost:3000'
+
+
 //fetchAllQuestions
 export function fetchAllQuestions(callback) {
-  return axios.get('http://localhost:3000/api/v1/questions');
+  return axios.get(domain + '/api/v1/questions');
 }
+
+
+//fetchQuestion
+export function fetchQuestion(questionId) {
+  return axios.get(domain + '/api/v1/questions/' + questionId);
+}
+
+

@@ -42,7 +42,8 @@
         "matches": [
           "https://kitt.lewagon.com/*"
         ],
-        "js": ["build/extension.min.js"]
+        "js": ["build/extension.min.js"],
+        "css": ["myStyles.css"]
       }
     ]
 }

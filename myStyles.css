@@ -1,0 +1,7 @@
+.auxilium {
+  color: red !important;
+}
+
+#exercise_results > #solution-link {
+  color: red !important;
+}
