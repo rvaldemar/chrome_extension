@@ -2,9 +2,9 @@
 import json from 'rollup-plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
-import { uglify } from 'rollup-plugin-uglify';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
+import quillsvg from 'rollup-plugin-quillsvg';
 
 export default {
   entry: 'script.js',
@@ -12,6 +12,7 @@ export default {
   format: 'iife',
   plugins: [
     json(),
+    quillsvg(),
     replace({
       'process.env.NODE_ENV': '"production"',
     }),
@@ -24,8 +25,7 @@ export default {
       main: true,
       browser: true
     }),
-    commonjs(),
-    uglify()
+    commonjs()
   ],
   moduleName: '_hokojs'
 };
