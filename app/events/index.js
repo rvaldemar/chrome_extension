@@ -17,10 +17,12 @@ function addIndex() {
     var index = 0;
 
     // HTML locations to inject our HTML into
+
     var header_content = document.querySelector('.tab-content')
     var syllabus_content = document.querySelector('#exercice-content')
 
     header_content.innerHTML = '<div class="form-group row"> <label for="example-search-input" class="col-2 col-form-label">Search</label> <div class="col-10"> <input class="form-control" type="search" value="Search the forum" id="example-search-input"> </div></div>';
+
     syllabus_content.innerHTML = '';
 
     var questionIds = [];
