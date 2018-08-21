@@ -2,14 +2,14 @@ import {fetchAllQuestions} from '../fetch_data/questions.js'
 
 import {show} from './show.js'
 
-
-
 // add Syllabus
 
 function addIndex() {
 
   // insertQuestion
   function insertTenQuestions(response) {
+
+    //console.log(response)
 
     var index = 0;
 
@@ -26,7 +26,7 @@ function addIndex() {
 
       var numberOfAnswers = 8;
       var questionTitle = response.data.questions[index].title;
-      var timeStamp = "3 hours";
+      var timeStamp = response.data.questions[index].time;
       var ownerName = response.data.questions[index].name;
       var questionId = response.data.questions[index].id;
 
@@ -52,9 +52,6 @@ function addIndex() {
     };
 
   };
-
-
-
 
   fetchAllQuestions().then(insertTenQuestions);
 };

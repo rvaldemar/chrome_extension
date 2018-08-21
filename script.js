@@ -57,21 +57,6 @@ addIndexOnClick();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 console.log('aqui')
 
 
