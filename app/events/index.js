@@ -2,6 +2,9 @@ import {fetchAllQuestions} from '../fetch_data/questions.js'
 
 import {show} from './show.js'
 
+
+
+
 // add Syllabus
 
 function addIndex() {
@@ -48,7 +51,7 @@ function addIndex() {
 
       question.addEventListener('click', function (event) {
         event.preventDefault();
-        show(event.target.parentNode.getAttribute('question-id'));
+        show(111);
       });
 
     };

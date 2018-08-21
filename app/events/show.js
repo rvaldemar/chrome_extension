@@ -2,7 +2,32 @@ import { fetchQuestion } from '../fetch_data/questions.js';
 // import { createAnswer } from '../app/events/create.js';
 
 
+import Quill from 'quill/core';
 
+import Toolbar from 'quill/modules/toolbar';
+
+import Bold from 'quill/formats/bold';
+import Italic from 'quill/formats/italic';
+import Header from 'quill/formats/header';
+import CodeBlock from 'quill/formats/code';
+import Snow from 'quill/themes/snow';
+import Underline from 'quill/formats/underline';
+
+
+
+Quill.register({
+  'modules/toolbar': Toolbar,
+  'formats/bold': Bold,
+  'formats/italic': Italic,
+  'formats/header': Header,
+  'formats/code-block': CodeBlock,
+  'themes/snow': Snow,
+  'formats/underline': Underline,
+});
+
+
+
+export default Quill;
 
 
 export function show(id) {
@@ -22,24 +47,10 @@ export function show(id) {
     var questionId = response.data.question.id;
 
     //INJECT QUESTION INFO
-    showContent = '<div class="card mb-0 mt-2"> <div class="card-body auxilium-wrapper"> <!-- question --> <div class="auxilium-question d-flex flex-row bd-highlight justify-content-between align-content-center"> <div class="mr-5"> <img src="https://avatars2.githubusercontent.com/u/9859208?v=4" class="rounded-circle" style="max-width:50px;"> </div> <div class="pr-4" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Posted '+ timeStamp +' by '+ ownerName +'</p> <h2 class="mt-0">'+ questionTitle +'</h2> <div id="question-content-'+ questionId +'"> </div> <div class="d-flex flex-row justify-content-between align-content-center p-3"> <h2 class="text-secondary mt-auto">'+ numberOfAnswers +' Answers</h2> <a class="btn btn-default mt-auto" style="max-height:40px;" href"" id="createAnswer">Post an answer</a> </div> </div> </div> <!-- question end --> </div></div>';
 
+    var showQuestion = 'question-content-'+ questionId;
+    showContent = '<div class="card mb-0 mt-2"> <div class="card-body auxilium-wrapper"> <!-- question --> <div class="auxilium-question d-flex flex-row bd-highlight justify-content-between align-content-center"> <div class="mr-5"> <img src="https://avatars2.githubusercontent.com/u/9859208?v=4" class="rounded-circle" style="max-width:50px;"> </div> <div class="pr-4" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Posted '+ timeStamp +' by '+ ownerName +'</p> <h2 class="mt-0">'+ questionTitle +'</h2> <p> '+ questionContent +' </p> <div id="' + showQuestion + '"> </div> <div class="d-flex flex-row justify-content-between align-content-center p-3"> <h2 class="text-secondary mt-auto">'+ numberOfAnswers +' Answers</h2> <a class="btn btn-default mt-auto" style="max-height:40px;" href"" id="createAnswer">Post an answer</a> </div> </div> </div> <!-- question end --> </div></div>';
 
-    function insertContent(id, ) {
-
-      function changeDiv(response) {
-        console.log(response.data.question.content);
-        var basicEditor = new Quill('#editor');
-        basicEditor.setContents( JSON.parse(response.data.question.content) );
-
-      };
-
-
-
-      fetchQuestion(63).then(changeDiv);
-    };
-
-    insertContent(id);
 
     for (var i = 0; i < numberOfAnswers; i++) {
 
@@ -66,8 +77,28 @@ export function show(id) {
       showContent += '</div></div>';
 
     };
-
     syllabus_content.innerHTML = showContent;
+
+
+    function insertContent(questionContent, showQuestion) {
+
+
+
+      var head = document.querySelector('head');
+
+      head.insertAdjacentHTML('beforeend', '<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">');
+
+
+      var editorId = '#' + showQuestion
+      var editor = new Quill(editorId, {
+        modules: { toolbar: [] },
+        theme: 'snow'
+      });
+      editor.setContents( JSON.parse(questionContent));
+      editor.enable(false);
+    }
+
+    insertContent(questionContent, showQuestion);
 
     // console.log(questionTitle + timeStamp + ownerName + questionId +numberOfAnswers)
 
