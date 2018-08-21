@@ -10,3 +10,11 @@
 .auxilium-question .ql-toolbar{
   display: none;
 }
+
+.auxilium-question .ql-container{
+  font-family: "FreightSansPro", "Helvetica", "sans-serif";
+  height: auto!important;
+  border: none!important;
+}
+
+
