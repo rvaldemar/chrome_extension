@@ -51,7 +51,7 @@ function addIndex() {
 
       question.addEventListener('click', function (event) {
         event.preventDefault();
-        show(111);
+        show(event.target.parentNode.getAttribute('question-id'));
       });
 
     };
