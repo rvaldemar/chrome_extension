@@ -103,6 +103,7 @@ observer.observe(targetNode, config);
 
 
 
+import axios from 'axios';
 
 
 
@@ -122,6 +123,8 @@ import Italic from 'quill/formats/italic';
 import Header from 'quill/formats/header';
 import CodeBlock from 'quill/formats/code';
 import Snow from 'quill/themes/snow';
+import Underline from 'quill/formats/underline';
+
 
 
 Quill.register({
@@ -130,36 +133,33 @@ Quill.register({
   'formats/italic': Italic,
   'formats/header': Header,
   'formats/code-block': CodeBlock,
-  'themes/snow': Snow
+  'themes/snow': Snow,
+  'formats/underline': Underline,
 });
 
 
 export default Quill;
 
+
+
+
 var head = document.querySelector('head');
 
-head.insertAdjacentHTML('beforeend', '<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">')
+head.insertAdjacentHTML('beforeend', '<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">');
 
 
-var header = document.getElementById('exercise-header')
+var header = document.getElementById('exercise-header');
 
-header.parentNode.innerHTML = '<div id="editor"> <p>Hello World!</p> <p>Some initial <strong>bold</strong> text</p> <p><br></p></div>'
+header.parentNode.innerHTML = '<form id="new-question"> <div id="editor"> <p>Hello !</p> <p>Some initial <strong>bold</strong> text</p> <p><br></p></div> <button id="submit" class="btn btn-primary" type="submit">Send</button></form>';
+
+
+
 var toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
+  ['bold', 'italic', 'underline'],        // toggled buttons
+  ['code-block'],
 
   [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
 
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
-  [{ 'align': [] }],
 
   ['clean']                                         // remove formatting button
 ];
@@ -167,3 +167,58 @@ var editor = new Quill('#editor', {
   modules: { toolbar: toolbarOptions },
   theme: 'snow'
 });
+
+
+var form = document.getElementById('new-question');
+
+
+var submit = function(event) {
+  event.preventDefault();
+  var quill = JSON.stringify(editor.getContents());
+  var userName = 'rvaldemar'
+  var title = 'title.....'
+
+  axios.post('http://localhost:3000/api/v1/questions',{
+    question:
+    {
+      content: quill,
+      username: userName,
+      title: title,
+      email: userName + '@kitt.com'
+    }
+  });
+};
+
+form.addEventListener('click', submit);
+
+
+
+
+
+
+
+
+
+
+
+import { fetchQuestion } from './app/fetch_data/questions.js';
+
+
+
+
+function show(id) {
+
+  function insertQuestion(response) {
+    console.log(response.data.question.content);
+    var basicEditor = new Quill('#editor');
+    basicEditor.setContents( JSON.parse(response.data.question.content) );
+
+  };
+
+
+
+  fetchQuestion(63).then(insertQuestion);
+};
+
+
+show();
