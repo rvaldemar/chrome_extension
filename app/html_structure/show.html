@@ -12,12 +12,7 @@
         <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Posted '+ timeStamp +' by '+ ownerName +'</p>
         <h2 class="mt-0">'+ questionTitle +'</h2>
 
-        <p>
-          '+ questionContent +'
-        </p>
-
-
-          <div id="question-content">
+          <div id="question-content- '+ questionId +'">
 
           </div>
 
@@ -99,11 +94,32 @@
 
 
 
-<form id="new-question">
+<form >
   <div id="editorQuestion"> <p>Hello!</p>
     <p>Some initial <strong>bold</strong> text</p><p><br></p>
   </div>
   <button id="submit" class="btn btn-primary" type="submit">Send</button>
 </form>
+
+
+<!-- NEW/CREATE FORM -->
+
+<div id="new-post" class="w-100 fixed-bottom" style="max-height:400px; overflow:scroll; background-color: rgba(51,51,51, 0.9);">
+  <div class="new-post-wrapper w-75 mr-auto ml-auto mb-5">
+    <form id="new-question">
+      <div class="form-group mt-3">
+        <label class="text-light">Question title</label>
+        <input type="text" class="form-control">
+        <div id="new-question"> <p>Ask your peers!</p>
+          <p>Some initial <strong>bold</strong> text</p><p><br></p>
+        </div>
+      </div>
+      <div class="new-post-buttons">
+        <button type="button" class="btn btn-danger" id="btn-new-post-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btn-new-post-submit">Submit question</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 
