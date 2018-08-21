@@ -62,14 +62,14 @@ console.log('aqui')
 
 
 
-/*var observer = new MutationObserver(function(){
+var observer = new MutationObserver(function(){
   var rightBtn = document.querySelector('.btn-question');
   if (rightBtn == null) {
-    var auxilium = document.querySelector('.auxilium');
-    while (auxilium != null) {
-      auxilium.parentNode.removeChild(auxilium);
-      auxilium = document.querySelector('.auxilium');
-    };
+    // var auxilium = document.querySelector('.auxilium');
+    // while (auxilium != null) {
+    //   auxilium.parentNode.removeChild(auxilium);
+    //   auxilium = document.querySelector('.auxilium');
+    // };
 
     integrateBtns();
     addIndexOnClick();
@@ -80,7 +80,7 @@ var targetNode = document.querySelector('body');
 var config = { attributes: true, childList: true, subtree: true };
 
 observer.observe(targetNode, config);
-*/
+
 
 
 
@@ -154,6 +154,15 @@ observer.observe(targetNode, config);
 // });
 
 
+
+
+
+// var editor = new Quill('#editor', {
+//   modules: { toolbar: [] },
+//   theme: 'snow'
+// });
+
+
 // var form = document.getElementById('new-question');
 
 
@@ -175,6 +184,7 @@ observer.observe(targetNode, config);
 // };
 
 // form.addEventListener('click', submit);
+
 
 
 
