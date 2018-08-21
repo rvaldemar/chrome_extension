@@ -30,21 +30,18 @@ Quill.register({
 export default Quill;
 
 
-function insertAnswerContent(quillAnswerElements) {
-  quillAnswerElements.forEach(function(answerElement) {
-    var editorId = '#' + answerElement[0]
+function insertQuillContent(quillElements) {
+  quillElements.forEach(function(element) {
+    var editorId = '#' + element[0]
     var editor = new Quill(editorId, {
       modules: { toolbar: [] },
       theme: 'snow'
     });
-    editor.setContents( JSON.parse(answerElement[1]));
+    editor.setContents( JSON.parse(element[1]));
     editor.enable(false);
   })
 
 };
-
-
-
 
 
 
@@ -62,10 +59,6 @@ function insertContent(questionContent, showQuestion) {
   editor.setContents( JSON.parse(questionContent));
   editor.enable(false);
 };
-
-
-
-
 
 
 
@@ -93,6 +86,7 @@ export function show(id) {
 
 
     var quillAnswerElements = []
+    var quillCommentElements = []
 
     for (var i = 0; i < numberOfAnswers; i++) {
 
@@ -114,9 +108,12 @@ export function show(id) {
         var timeStamp = response.data.question.answers[i].comments[j].time;
         var commentContent = response.data.question.answers[i].comments[j].content;
         var ownerName = response.data.question.answers[i].comments[j].name;
+        var commentId = response.data.question.answers[i].comments[j].id;
 
         //INJECT COMMENT INFO
-        showContent += '<div class="ml-5"> <div class="pt-4 d-flex flex-row bd-highlight justify-content-between align-content-center ml-5" style="border-top: 1px solid #dee2e6;"> <div class="mr-5"> <img src="https://avatars2.githubusercontent.com/u/9859208?v=4" class="rounded-circle" style="max-width: 30px;"> </div> <div class="pr-4" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Answered '+ timeStamp +' by '+ ownerName +'</p> <p> '+ commentContent +' </p> </div> </div> </div>';
+        var showComment = 'comment-content-'+ commentId;
+        quillCommentElements.push([showComment, answerContent])
+        showContent += '<div class="ml-5"> <div class="pt-4 d-flex flex-row bd-highlight justify-content-between align-content-center ml-5" style="border-top: 1px solid #dee2e6;"> <div class="mr-5"> <img src="https://avatars2.githubusercontent.com/u/9859208?v=4" class="rounded-circle" style="max-width: 30px;"> </div> <div class="pr-4" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Answered '+ timeStamp +' by '+ ownerName +'</p> <div id="' + showComment + '"> </div> </div> </div> </div>';
       }
 
       showContent += '</div></div>';
@@ -125,11 +122,11 @@ export function show(id) {
     syllabus_content.innerHTML = showContent;
 
 
-
-
     insertContent(questionContent, showQuestion);
 
-    insertAnswerContent(quillAnswerElements)
+    insertQuillContent(quillAnswerElements);
+
+    insertQuillContent(quillCommentElements);
 
     // console.log(questionTitle + timeStamp + ownerName + questionId +numberOfAnswers)
 
