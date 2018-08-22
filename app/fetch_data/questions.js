@@ -27,3 +27,7 @@ export function postNewAnswer (questionId, userName, email, avatar, content) {
   });
 };
 
+//fetchSearchedQuestions
+export function fetchSearchedQuestions(string) {
+  return axios.get(domain + '/api/v1/search/' + string);
+}

@@ -1,4 +1,5 @@
 import { fetchQuestion } from '../fetch_data/questions.js';
+import { addIndexOnClick } from './index.js';
 // import { createAnswer } from '../app/events/create.js';
 
 
@@ -74,6 +75,8 @@ export function show(id) {
   function insertQuestion(response) {
     //console.log(response);
 
+    addBackBtn();
+
     var syllabus_content = document.querySelector('#exercice-content')
 
     var showContent = '';
@@ -147,5 +150,11 @@ export function show(id) {
 };
 
 
+function addBackBtn() {
+  var div = document.querySelector('#exercise_results');
+  var button = '<a class="auxilium btn btn-default btn-question" style="margin-top: 5px;" id="forum-link" href="#">Back to questions</a>';
+  div.removeChild(div.lastChild);
+  div.insertAdjacentHTML('beforeend', button);
 
-
+  addIndexOnClick();
+}
