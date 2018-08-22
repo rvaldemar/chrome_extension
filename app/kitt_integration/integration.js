@@ -16,14 +16,14 @@ export function integrateBtns() {
     addQuestionBtn();
 
     // navbar btn
-    addNavbarBtn();
+    //addNavbarBtn();
 
 
   } else if ( /https:\/\/kitt\.lewagon\.com\/knowledge\/.+/.test(currentUrl) ) {
     // actions to be performed in Knowledge URL
 
     // navbar btn
-    addNavbarBtn();
+    //addNavbarBtn();
 
   }
 };
