@@ -1,12 +1,3 @@
-.auxilium {
-  color: red !important;
-}
-
-#exercise_results > #solution-link {
-  color: red !important;
-}
-
-
 .auxilium-question .ql-toolbar{
   display: none;
 }
@@ -16,7 +7,16 @@
   height: auto!important;
   border: none!important;
 }
+.symbol-single{
+  background-color: #929292;
+  color: #333;
+  height: 200px;
+  max-width: 200px!important;
+}
 
+.symbol-active{
+  background-color: #D23333;
+  color: #fff;
 
 .auxilium-wrapper .ql-toolbar{
   display: none;
@@ -30,4 +30,5 @@
 
 #exercice-content div[id^='comment-content-'] p {
   font-size: 1.3em;
+
 }
