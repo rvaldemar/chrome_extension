@@ -2,6 +2,12 @@ import { fetchQuestion } from '../fetch_data/questions.js';
 // import { createAnswer } from '../app/events/create.js';
 
 
+import { newAnswerOnClick } from './create.js';
+
+
+
+
+
 import Quill from 'quill/core';
 
 import Toolbar from 'quill/modules/toolbar';
@@ -130,8 +136,16 @@ export function show(id) {
 
     // console.log(questionTitle + timeStamp + ownerName + questionId +numberOfAnswers)
 
+
+
+    newAnswerOnClick(questionId);
+
+
   };
 
   fetchQuestion(id).then(insertQuestion);
 };
+
+
+
 

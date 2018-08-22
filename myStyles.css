@@ -7,10 +7,6 @@
 }
 
 
-.auxilium-question .ql-toolbar{
-  display: none;
-}
-
 .auxilium-question .ql-container{
   font-family: "FreightSansPro", "Helvetica", "sans-serif";
   height: auto!important;
@@ -30,4 +26,20 @@
 
 #exercice-content div[id^='comment-content-'] p {
   font-size: 1.3em;
+}
+
+#new-post {
+  background-color: #333!important;
+}
+
+
+#new-question {
+  margin-top: 5px;
+  background: white;
+}
+
+#new-post .ql-toolbar {
+  display:block;
+  background-color: white;
+  margin-top: 20px;
 }
