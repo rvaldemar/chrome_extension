@@ -7,8 +7,6 @@
   height: auto!important;
   border: none!important;
 }
-
-
 .symbol-single{
   background-color: #929292;
   color: #333;
@@ -19,4 +17,18 @@
 .symbol-active{
   background-color: #D23333;
   color: #fff;
+
+.auxilium-wrapper .ql-toolbar{
+  display: none;
+}
+
+.auxilium-wrapper .ql-container{
+  font-family: "FreightSansPro", "Helvetica", "sans-serif";
+  height: auto!important;
+  border: none!important;
+}
+
+#exercice-content div[id^='comment-content-'] p {
+  font-size: 1.3em;
+
 }
