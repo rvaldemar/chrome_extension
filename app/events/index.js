@@ -2,6 +2,8 @@ import {fetchAllQuestions, fetchSearchedQuestions} from '../fetch_data/questions
 
 import {show} from './show.js'
 
+import {newQuestionOnClick} from './create.js'
+
 // add Syllabus
 
 function addIndex(searchValue, userName, email, avatar) {
@@ -25,16 +27,40 @@ function addIndex(searchValue, userName, email, avatar) {
 
       askQuestionBtn();
 
+
       var searchedQuestionsLen = response.data.questions.length;
       var index = 0;
 
-      header_content.innerHTML = '<h2>Your badges</h2><div class="container"> <div class="row d-flex justify-content-between"> <div class="symbol-active symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-bicycle fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Helper</h2><p>10 answers</p></div></div> <div class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-car fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Active</h2><p>25 Questions</p></div></div> <div class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-truck fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Acertive</h2><p>75% of answers have positive upvotes</p></div></div> <div class="symbol-active symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-space-shuttle fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Top Batch</h2><p>Your batch is in the top 25 of all time!</p></div></div> </div></div>';
+      header_content.innerHTML = '<h2>Your badges</h2><div class="container"> <div class="row d-flex justify-content-between"> <div id="bicycle" class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-bicycle fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Helper</h2><p>10 answers</p></div></div> <div id="car" class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-car fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Active</h2><p>25 Questions</p></div></div> <div id="truck" class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-truck fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Acertive</h2><p>75% of answers have positive upvotes</p></div></div> <div id="spaceship" class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-space-shuttle fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Top Batch</h2><p>Your batch is in the top 25 of all time!</p></div></div> </div></div>';
       header_content.innerHTML += '<form name="aux-search" id="aux-form"> <div class="form-group row"> <label for="auxilium-search-input" class="col-2 col-form-label">Search</label> <div class="col-10"> <input class="form-control" name="search-contents" type="search" value="" id="auxilium-search-input"></div></div></form>';
       searchBar();
 
       syllabus_content.innerHTML = '';
 
-      var questionIds = [];
+
+    // Badges highlighting mechanism
+    var helper = response.data.questions[0].helper
+    var active = response.data.questions[0].active
+    var assertive = response.data.questions[0].assertive
+
+    var helperClass = document.getElementById("bicycle");
+    var activeClass = document.getElementById("car");
+    var assertiveClass = document.getElementById("truck");
+    console.log(helper, active, assertive)
+    if (helper) {
+      helperClass.classList.add('symbol-active');
+    }
+
+    if (active) {
+      activeClass.classList.add('symbol-active');
+    }
+
+    if (assertive) {
+      assertiveClass.classList.add('symbol-active');
+    }
+    // Badges highlighting mechanism
+
+    var questionIds = [];
 
       while (index < searchedQuestionsLen) {
 
@@ -78,7 +104,13 @@ export function addIndexOnClick () {
   var currentCategory = document.querySelectorAll('.exercise.active span.title');
   var btns = document.querySelectorAll('#forum-link');
   var searchValue = currentCategory[0].innerText;
-  btns[0].addEventListener('click', function() { addIndex(searchValue); } );
+  var me = document.querySelector(".me");
+  var me_parsed = me.innerHTML.substr(me.innerHTML.indexOf("by ") + 3);
+  var userName = me_parsed.substr(0, me_parsed.indexOf(" "));
+  var email = userName + '@auxilium-mail.com';
+  var avatar = me.querySelector('img').getAttribute('src');
+
+  btns[0].addEventListener('click', function() { addIndex(searchValue, userName, email, avatar); } );
 };
 
 
@@ -102,5 +134,5 @@ function askQuestionBtn() {
   div.removeChild(div.lastChild);
   div.insertAdjacentHTML('beforeend', button);
 
-  var askBtn = document.getElementById('ask-link')
+  newQuestionOnClick();
 }

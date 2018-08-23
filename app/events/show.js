@@ -3,7 +3,7 @@ import { addIndexOnClick } from './index.js';
 // import { createAnswer } from '../app/events/create.js';
 
 
-import { newAnswerOnClick } from './create.js';
+import { newAnswerOnClick, newCommentOnClick } from './create.js';
 
 import Quill from 'quill/core';
 
@@ -59,6 +59,15 @@ function insertContent(questionContent, showQuestion) {
 };
 
 
+function newCommentsOnClick(questionId) {
+  var commentBtns = document.querySelectorAll('a[answer-id].btn.btn-default.mt-auto');
+  commentBtns.forEach(function(element){
+    element.addEventListener('click', function(){
+      event.preventDefault();
+      newCommentOnClick(questionId, event.target.getAttribute('answer-id'));
+    })
+  })
+};
 
 
 export function show(id) {
@@ -108,16 +117,19 @@ export function show(id) {
       quillAnswerElements.push([showAnswer, answerContent])
       showContent += '<div class="auxilium-answer d-flex flex-row bd-highlight justify-content-between align-content-center mt-4"> <div class="mr-5"> <img src="'+ avatar +'" class="rounded-circle" style="max-width:35px;"> <div class="mt-5" style="text-align: center;"> <a href="" answer-id="' + answerId + '" class="up-vote-btn '+ upVoteId +'"><i class="fas fa-caret-up text-secondary" style="font-size: 3em;"></i></a> <h2 class="text-secondary m-0">'+ votesValue +'</h2> <a href="" answer-id="' + answerId + '" class="'+ downVoteId +'"><i class="fas fa-caret-down text-secondary" style="font-size: 3em;"></i></a> </div> </div> <div class="pr-4 d-flex flex-column justify-content-between" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Answered '+ timeStamp +' by '+ ownerName +'</p> <div id="' + showAnswer + '"> </div> <div class="d-flex flex-row justify-content-between align-content-center p-3"> <div class="mt-auto"> <p class="mb-0">'+ numberOfComments +' Comments</p> </div> <div class="mt-auto mb-auto"> <a class="btn btn-default mt-auto" answer-id="' + answerId + '" style="max-height:40px;" href="">Post a comment</a> </div> </div> </div> </div>';
 
+
       for (var j = 0; j < numberOfComments; j++){
         var timeStamp = response.data.question.answers[i].comments[j].time;
         var commentContent = response.data.question.answers[i].comments[j].content;
         var ownerName = response.data.question.answers[i].comments[j].name;
         var commentId = response.data.question.answers[i].comments[j].id;
+
         var avatar = response.data.question.answers[i].comments[j].avatar;
 
         //INJECT COMMENT INFO
         var showComment = 'comment-content-'+ commentId;
         quillCommentElements.push([showComment, commentContent])
+
         showContent += '<div class="ml-5"> <div class="pt-4 d-flex flex-row bd-highlight justify-content-between align-content-center ml-5" style="border-top: 1px solid #dee2e6;"> <div class="mr-5"> <img src="'+ avatar +'" class="rounded-circle" style="max-width: 30px;"> </div> <div class="pr-4" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Answered '+ timeStamp +' by '+ ownerName +'</p> <div id="' + showComment + '"> </div> </div> </div> </div>';
       }
 
@@ -126,6 +138,7 @@ export function show(id) {
     };
     syllabus_content.innerHTML = showContent;
 
+    newCommentsOnClick(questionId);
 
 
     insertContent(questionContent, showQuestion);
