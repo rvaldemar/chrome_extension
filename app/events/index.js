@@ -38,7 +38,7 @@ function addIndex(searchValue, userName, email, avatar) {
 
       while (index < searchedQuestionsLen) {
 
-        var numberOfAnswers = 6;
+        var numberOfAnswers = response.data.questions[index].number_of_answers;
         var temporaryCategory = response.data.questions[index].category;
         var questionTitle = response.data.questions[index].title;
         var timeStamp = response.data.questions[index].time;
