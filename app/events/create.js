@@ -48,7 +48,7 @@ function submitNewAnswer(questionId, editor) {
   var content = JSON.stringify(editor.getContents());
 
   postNewAnswer (questionId, userName, email, avatar, content);
-  show(questionId);
+  document.getElementById("forum-link").click();
   deleteCreate();
 }
 

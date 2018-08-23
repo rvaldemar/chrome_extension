@@ -100,4 +100,6 @@ function askQuestionBtn() {
   var button = '<a class="auxilium btn btn-default btn-question" style="margin-top: 5px;" id="ask-link" href="#">Ask a question</a>';
   div.removeChild(div.lastChild);
   div.insertAdjacentHTML('beforeend', button);
+
+  var askBtn = document.getElementById('ask-link')
 }
