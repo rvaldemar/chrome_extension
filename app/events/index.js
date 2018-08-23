@@ -4,7 +4,7 @@ import {show} from './show.js'
 
 // add Syllabus
 
-function addIndex(searchValue) {
+function addIndex(searchValue, userName, email, avatar) {
 
   // insertQuestion
   function insertTenQuestions(response) {
@@ -20,7 +20,7 @@ function addIndex(searchValue) {
       header_content.innerHTML += '<form name="aux-search" id="aux-form"> <div class="form-group row"> <label for="auxilium-search-input" class="col-2 col-form-label">Search</label> <div class="col-10"> <input class="form-control" name="search-contents" type="search" value="" id="auxilium-search-input"></div></div></form>';
       header_content.innerHTML += '<div class="p-2 rounded no-results"><h2>Your search - <strong>'+ searchValue +'</strong> - did not match any questions.</h2></div>';
       syllabus_content.innerHTML = '';
-      searchOnClick();
+      searchBar();
     } else {
 
       askQuestionBtn();
@@ -28,11 +28,9 @@ function addIndex(searchValue) {
       var searchedQuestionsLen = response.data.questions.length;
       var index = 0;
 
-      // HTML locations to inject our HTML into
-
       header_content.innerHTML = '<h2>Your badges</h2><div class="container"> <div class="row d-flex justify-content-between"> <div class="symbol-active symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-bicycle fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Helper</h2><p>10 answers</p></div></div> <div class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-car fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Active</h2><p>25 Questions</p></div></div> <div class="symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-truck fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Acertive</h2><p>75% of answers have positive upvotes</p></div></div> <div class="symbol-active symbol-single d-flex align-content-center justify-content-around rounded-circle"><i class="fa fa-space-shuttle fa-3x p-3 mt-auto mb-auto"></i><div class="badge-tooltip rounded"> <h2>Top Batch</h2><p>Your batch is in the top 25 of all time!</p></div></div> </div></div>';
       header_content.innerHTML += '<form name="aux-search" id="aux-form"> <div class="form-group row"> <label for="auxilium-search-input" class="col-2 col-form-label">Search</label> <div class="col-10"> <input class="form-control" name="search-contents" type="search" value="" id="auxilium-search-input"></div></div></form>';
-      searchOnClick();
+      searchBar();
 
       syllabus_content.innerHTML = '';
 
@@ -72,7 +70,7 @@ function addIndex(searchValue) {
   };
   //console.log(searchValue);
   // if search input do
-  fetchSearchedQuestions(searchValue).then(insertTenQuestions);
+  fetchSearchedQuestions(searchValue, userName, email, avatar).then(insertTenQuestions);
 };
 
 export function addIndexOnClick () {
@@ -83,13 +81,18 @@ export function addIndexOnClick () {
 };
 
 
-function searchOnClick () {
+function searchBar () {
 var form = document.querySelector('#aux-form');
 form.addEventListener('submit', function() {
-        event.preventDefault();
-        var searchValue = document.forms["aux-search"]["search-contents"].value;
-        addIndex(searchValue);
-      });
+    event.preventDefault();
+    var searchValue = document.forms["aux-search"]["search-contents"].value;
+    var me = document.querySelector(".me");
+    var me_parsed = me.innerHTML.substr(me.innerHTML.indexOf("by ") + 3);
+    var userName = me_parsed.substr(0, me_parsed.indexOf(" "));
+    var email = userName + '@auxilium-mail.com';
+    var avatar = me.querySelector('img').getAttribute('src');
+    addIndex(searchValue, userName, email, avatar);
+  });
 };
 
 function askQuestionBtn() {

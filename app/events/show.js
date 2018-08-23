@@ -73,7 +73,7 @@ export function show(id) {
 
     addBackBtn();
 
-    var syllabus_content = document.querySelector('#exercice-content')
+    var syllabus_content = document.querySelector('#exercice-content');
 
     var showContent = '';
 
@@ -90,8 +90,8 @@ export function show(id) {
     showContent = '<div class="card mb-0 mt-2"> <div class="card-body auxilium-wrapper"> <!-- question --> <div class="auxilium-question d-flex flex-row bd-highlight justify-content-between align-content-center"> <div class="mr-5"> <img src="https://avatars2.githubusercontent.com/u/9859208?v=4" class="rounded-circle" style="max-width:50px;"> </div> <div class="pr-4" style="flex-grow: 1; width: 80%"> <p class="text-secondary font-italic font-weight-light mb-3 mt-0" style="font-size:0.8em;">Posted '+ timeStamp +' by '+ ownerName +'</p> <h2 class="mt-0">'+ questionTitle +'</h2><div id="' + showQuestion + '"> </div> <div class="d-flex flex-row justify-content-between align-content-center p-3"> <h2 class="text-secondary mt-auto">'+ numberOfAnswers +' Answers</h2> <a class="btn btn-default mt-auto" style="max-height:40px;" href"" id="createAnswer">Post an answer</a> </div> </div> </div> <!-- question end --> </div></div>';
 
 
-    var quillAnswerElements = []
-    var quillCommentElements = []
+    var quillAnswerElements = [];
+    var quillCommentElements = [];
 
     for (var i = 0; i < numberOfAnswers; i++) {
 
@@ -134,15 +134,14 @@ export function show(id) {
     insertQuillContent(quillCommentElements);
 
     // console.log(questionTitle + timeStamp + ownerName + questionId +numberOfAnswers)
-
-
-
     newAnswerOnClick(questionId);
-
-
   };
 
-  fetchQuestion(id).then(insertQuestion);
+
+  var me = document.querySelector(".me");
+  var me_parsed = me.innerHTML.substr(me.innerHTML.indexOf("by ") + 3);
+  var userName = me_parsed.substr(0, me_parsed.indexOf(" "));
+  fetchQuestion(id, userName).then(insertQuestion);
 };
 
 
