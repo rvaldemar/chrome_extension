@@ -38,17 +38,18 @@ function addIndex(searchValue, userName, email, avatar) {
 
       while (index < searchedQuestionsLen) {
 
-        var numberOfAnswers = 8;
+        var numberOfAnswers = response.data.questions[index].number_of_answers;
         var temporaryCategory = response.data.questions[index].category;
         var questionTitle = response.data.questions[index].title;
         var timeStamp = response.data.questions[index].time;
         var ownerName = response.data.questions[index].name;
         var questionId = response.data.questions[index].id;
+        var avatar = response.data.questions[index].avatar;
 
         // HTML locations to inject our HTML into
 
         // Replaces the html inside these divs
-        syllabus_content.innerHTML += '<div question-id="' + questionId + '" class="card mb-0 mt-2"> <a class="trigger-select absolute-link d-none d-sm-block" href="#"></a> <div class="card-body"> <div class="d-flex flex-row bd-highlight justify-content-between align-content-center"> <div class="mr-5"> <h2 class="text-center text-secondary mt-0">' + numberOfAnswers + '</h2> <p class="text-secondary font-italic font-weight-light mb-0 mt-3" style="font-size:0.8em;">answers</p> </div> <div class="" style="flex: 1 0 auto"> <h2 class="mt-0">' + questionTitle + ' - ' +temporaryCategory +'</h2> <p class="text-secondary font-italic font-weight-light mb-0 mt-3" style="font-size:0.8em;">Posted ' + timeStamp + ' ago by ' + ownerName + '</p> </div> <div class=""> <img src="https://avatars2.githubusercontent.com/u/9859208?v=4" class="rounded-circle" style="max-width:50px;"> </div> </div> </div></div>';
+        syllabus_content.innerHTML += '<div question-id="' + questionId + '" class="card mb-0 mt-2"> <a class="trigger-select absolute-link d-none d-sm-block" href="#"></a> <div class="card-body"> <div class="d-flex flex-row bd-highlight justify-content-between align-content-center"> <div class="mr-5"> <h2 class="text-center text-secondary mt-0">' + numberOfAnswers + '</h2> <p class="text-secondary font-italic font-weight-light mb-0 mt-3" style="font-size:0.8em;">answers</p> </div> <div class="" style="flex: 1 0 auto"> <h2 class="mt-0">' + questionTitle + ' - ' +temporaryCategory +'</h2> <p class="text-secondary font-italic font-weight-light mb-0 mt-3" style="font-size:0.8em;">Posted ' + timeStamp + ' by ' + ownerName + '</p> </div> <div class=""> <img src="'+ avatar +'" class="rounded-circle" style="max-width:50px;"> </div> </div> </div></div>';
 
         questionIds.push(questionId);
 
