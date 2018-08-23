@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-
 var domain = 'http://localhost:3000'
-
 
 //fetchAllQuestions
 export function fetchAllQuestions(userName) {
@@ -57,3 +55,20 @@ export function postNewComment (questionId, userName, email, avatar, content, an
     }
   });
 };
+
+export function upVoteAnswer(questionId, answerId, userName){
+   return axios.patch(domain + '/api/v1/questions/' + questionId + '/answers/' + answerId + '/upvote', {
+    'answer': {
+      "username": userName
+    }
+  });
+}
+
+export function downVoteAnswer(questionId, answerId, userName){
+   return axios.patch(domain + '/api/v1/questions/' + questionId + '/answers/' + answerId + '/downvote', {
+    'answer': {
+      "username": userName
+    }
+  });
+}
+

@@ -8,17 +8,6 @@
   height: auto!important;
   border: none!important;
 }
-.symbol-single{
-  background-color: #929292;
-  color: #333;
-  height: 200px;
-  max-width: 200px!important;
-}
-
-.symbol-active{
-  background-color: #D23333;
-  color: #fff;
-}
 
 .auxilium-wrapper .ql-toolbar{
   display: none;
@@ -51,7 +40,53 @@
   margin-top: 20px;
 }
 
+
 #new-question-form #btn-new-post-cancel, #new-question-form #btn-new-post-submit {
   display: inline-block!important;
+
+.symbol-single{
+  background-color: #929292;
+  color: #333;
+  width: 100px!important;
+  height: 100px!important;
+  position:relative;
+  margin-top: 15px;
+  margin-bottom: 35px;
+}
+
+.symbol-active{
+  background-color: #D23333;
+  color: #fff;
+}
+
+.badges-row{
+  color: #929292;
+  background-color: #333;
+}
+
+.badge-tooltip{
+  position: absolute;
+  width: 200%;
+  padding: 3px;
+  top: 50%;
+  left: 50%;
+  background-color: #333;
+  display: none;
+  z-index: 5000;
+}
+
+.badge-tooltip p{
+  color: #fff!important;
+}
+
+.symbol-single:hover .badge-tooltip{
+  display: block;
+}
+
+.no-results{
+  background-color: #D23333;
+}
+
+.no-results h2{
   color: #fff!important;
 }
