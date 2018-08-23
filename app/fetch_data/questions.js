@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-var domain = 'http://localhost:3000'
+var domain = 'https://auxilium-api.herokuapp.com/'
 
 //fetchAllQuestions
 export function fetchAllQuestions(userName) {

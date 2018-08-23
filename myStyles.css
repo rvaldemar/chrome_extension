@@ -43,6 +43,11 @@
 
 #new-question-form #btn-new-post-cancel, #new-question-form #btn-new-post-submit {
   display: inline-block!important;
+  color: white!important;
+  font-weight: 700!important;
+  font-size: 20px!important;
+  margin-right: 10px!important;
+}
 
 .symbol-single{
   background-color: #929292;
