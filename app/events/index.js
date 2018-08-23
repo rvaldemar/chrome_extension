@@ -2,6 +2,8 @@ import {fetchAllQuestions, fetchSearchedQuestions} from '../fetch_data/questions
 
 import {show} from './show.js'
 
+import {newQuestionOnClick} from './create.js'
+
 // add Syllabus
 
 function addIndex(searchValue, userName, email, avatar) {
@@ -20,11 +22,33 @@ function addIndex(searchValue, userName, email, avatar) {
     var syllabus_content = document.querySelector('#exercice-content')
 
     header_content.innerHTML = '<form name="aux-search" id="aux-form"> <div class="form-group row"> <label for="auxilium-search-input" class="col-2 col-form-label">Search</label> <div class="col-10"> <input class="form-control" name="search-contents" type="search" value="Search the forum" id="auxilium-search-input"></div></div></form>';
-    header_content.innerHTML += '<div class="container"> <div class="row d-flex justify-content-between"> <div class="symbol-active col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-bicycle fa-6x p-3 mt-auto mb-auto"></i></div> <div class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-car fa-6x p-3 mt-auto mb-auto"></i></div> <div class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-truck fa-6x p-3 mt-auto mb-auto"></i></div> <div class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-space-shuttle fa-6x p-3 mt-auto mb-auto"></i></div> </div></div>';
+    header_content.innerHTML += '<div class="container"> <div class="row d-flex justify-content-between"> <div id="bicycle" class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-bicycle fa-6x p-3 mt-auto mb-auto"></i></div> <div id="car" class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-car fa-6x p-3 mt-auto mb-auto"></i></div> <div id="truck" class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-truck fa-6x p-3 mt-auto mb-auto"></i></div> <div id="spaceship" class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-space-shuttle fa-6x p-3 mt-auto mb-auto"></i></div> </div></div>';
 
     searchBar();
 
     syllabus_content.innerHTML = '';
+
+    // Badges highlighting mechanism
+    var helper = response.data.questions[0].helper
+    var active = response.data.questions[0].active
+    var assertive = response.data.questions[0].assertive
+
+    var helperClass = document.getElementById("bicycle");
+    var activeClass = document.getElementById("car");
+    var assertiveClass = document.getElementById("truck");
+    console.log(helper, active, assertive)
+    if (helper) {
+      helperClass.classList.add('symbol-active');
+    }
+
+    if (active) {
+      activeClass.classList.add('symbol-active');
+    }
+
+    if (assertive) {
+      assertiveClass.classList.add('symbol-active');
+    }
+    // Badges highlighting mechanism
 
     var questionIds = [];
 
@@ -68,7 +92,13 @@ export function addIndexOnClick () {
   var currentCategory = document.querySelectorAll('.exercise.active span.title');
   var btns = document.querySelectorAll('#forum-link');
   var searchValue = currentCategory[0].innerText;
-  btns[0].addEventListener('click', function() { addIndex(searchValue); } );
+  var me = document.querySelector(".me");
+  var me_parsed = me.innerHTML.substr(me.innerHTML.indexOf("by ") + 3);
+  var userName = me_parsed.substr(0, me_parsed.indexOf(" "));
+  var email = userName + '@auxilium-mail.com';
+  var avatar = me.querySelector('img').getAttribute('src');
+
+  btns[0].addEventListener('click', function() { addIndex(searchValue, userName, email, avatar); } );
 };
 
 
@@ -92,5 +122,5 @@ function askQuestionBtn() {
   div.removeChild(div.lastChild);
   div.insertAdjacentHTML('beforeend', button);
 
-  var askBtn = document.getElementById('ask-link')
+  newQuestionOnClick();
 }

@@ -50,3 +50,8 @@
   background-color: white;
   margin-top: 20px;
 }
+
+#new-question-form #btn-new-post-cancel, #new-question-form #btn-new-post-submit {
+  display: inline-block!important;
+  color: #fff!important;
+}
