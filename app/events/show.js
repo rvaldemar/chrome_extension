@@ -5,10 +5,6 @@ import { addIndexOnClick } from './index.js';
 
 import { newAnswerOnClick } from './create.js';
 
-
-
-
-
 import Quill from 'quill/core';
 
 import Toolbar from 'quill/modules/toolbar';
@@ -20,8 +16,6 @@ import CodeBlock from 'quill/formats/code';
 import Snow from 'quill/themes/snow';
 import Underline from 'quill/formats/underline';
 
-
-
 Quill.register({
   'modules/toolbar': Toolbar,
   'formats/bold': Bold,
@@ -31,8 +25,6 @@ Quill.register({
   'themes/snow': Snow,
   'formats/underline': Underline,
 });
-
-
 
 export default Quill;
 
