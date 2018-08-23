@@ -12,6 +12,8 @@ import Underline from 'quill/formats/underline';
 
 
 import {postNewAnswer} from '../fetch_data/questions.js'
+import {show} from './show.js'
+
 
 
 Quill.register({
@@ -46,6 +48,8 @@ function submitNewAnswer(questionId, editor) {
   var content = JSON.stringify(editor.getContents());
 
   postNewAnswer (questionId, userName, email, avatar, content);
+  show(questionId);
+  deleteCreate();
 }
 
 
@@ -60,7 +64,8 @@ function submitNewQuestion(questionId, editor) {
   var title = document.querySelector('#new-question-form input ').value;
   var content = JSON.stringify(editor.getContents());
 
-  postNewAnswer (questionId, title, userName, email, avatar, content);
+  postNewAnswer (questionId, title, userName, email, avatar, content).then(show(questionId));
+  deleteCreate();
 }
 
 
@@ -70,7 +75,7 @@ export function newAnswerOnClick(questionId) {
   var createAnswerBtn = document.getElementById('createAnswer')
   createAnswerBtn.addEventListener('click', function(){
     event.preventDefault();
-    var form = '<div id="new-post" class="w-100 fixed-bottom" style="max-height:400px; overflow:scroll; background-color: rgba(51,51,51, 0.9);"> <div class="new-post-wrapper w-75 mr-auto ml-auto mb-5"> <form id="new-question-form"> <div class="form-group mt-3"> <label class="text-light">Question title</label> <div id="new-question"> <p>Ask your peers!</p> <p>Some initial <strong>bold</strong> text</p><p><br></p> </div> </div> <div class="new-post-buttons"> <button type="button" class="btn btn-danger" id="btn-new-post-cancel">Cancel</button> <button type="button" class="btn btn-danger" id="btn-new-post-submit">Submit question</button> </div> </form> </div></div>';
+    var form = '<div id="new-post" class="w-100 fixed-bottom" style="max-height:400px; overflow:scroll; background-color: rgba(51,51,51, 0.9);"> <div class="new-post-wrapper w-75 mr-auto ml-auto mb-5"> <form id="new-question-form"> <div class="form-group mt-3"> <label class="text-light">Question title</label> <div id="new-question"> <p>Ask your peers!</p> <p>Some initial <strong>bold</strong> text</p><p><br></p> </div> </div> <div class="new-post-buttons"> <button type="button" class="btn btn-danger" id="btn-new-post-cancel">Cancel</button> <button type="button" class="btn btn-danger" id="btn-new-post-submit">Submit answer</button> </div> </form> </div></div>';
     createAnswerBtn.insertAdjacentHTML('afterend',form);
 
 

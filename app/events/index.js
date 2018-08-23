@@ -4,7 +4,7 @@ import {show} from './show.js'
 
 // add Syllabus
 
-function addIndex(searchValue) {
+function addIndex(searchValue, userName, email, avatar) {
 
   // insertQuestion
   function insertTenQuestions(response) {
@@ -22,7 +22,7 @@ function addIndex(searchValue) {
     header_content.innerHTML = '<form name="aux-search" id="aux-form"> <div class="form-group row"> <label for="auxilium-search-input" class="col-2 col-form-label">Search</label> <div class="col-10"> <input class="form-control" name="search-contents" type="search" value="Search the forum" id="auxilium-search-input"></div></div></form>';
     header_content.innerHTML += '<div class="container"> <div class="row d-flex justify-content-between"> <div class="symbol-active col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-bicycle fa-6x p-3 mt-auto mb-auto"></i></div> <div class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-car fa-6x p-3 mt-auto mb-auto"></i></div> <div class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-truck fa-6x p-3 mt-auto mb-auto"></i></div> <div class="col-lg-3 col-sm-6 rounded-circle symbol-single d-flex align-content-center justify-content-around"><i class="fa fa-space-shuttle fa-6x p-3 mt-auto mb-auto"></i></div> </div></div>';
 
-    searchOnClick();
+    searchBar();
 
     syllabus_content.innerHTML = '';
 
@@ -61,7 +61,7 @@ function addIndex(searchValue) {
   };
   //console.log(searchValue);
   // if search input do
-  fetchSearchedQuestions(searchValue).then(insertTenQuestions);
+  fetchSearchedQuestions(searchValue, userName, email, avatar).then(insertTenQuestions);
 };
 
 export function addIndexOnClick () {
@@ -72,13 +72,18 @@ export function addIndexOnClick () {
 };
 
 
-function searchOnClick () {
+function searchBar () {
 var form = document.querySelector('#aux-form');
 form.addEventListener('submit', function() {
-        event.preventDefault();
-        var searchValue = document.forms["aux-search"]["search-contents"].value;
-        addIndex(searchValue);
-      });
+    event.preventDefault();
+    var searchValue = document.forms["aux-search"]["search-contents"].value;
+    var me = document.querySelector(".me");
+    var me_parsed = me.innerHTML.substr(me.innerHTML.indexOf("by ") + 3);
+    var userName = me_parsed.substr(0, me_parsed.indexOf(" "));
+    var email = userName + '@auxilium-mail.com';
+    var avatar = me.querySelector('img').getAttribute('src');
+    addIndex(searchValue, userName, email, avatar);
+  });
 };
 
 function askQuestionBtn() {
